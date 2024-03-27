@@ -1,4 +1,4 @@
-//go:build !be_json_rpc_evm && !be_json_rpc_wasm
+//go:build !be_json_rpc_evm
 
 package backend
 
@@ -6,11 +6,10 @@ import (
 	berpcbackend "github.com/bcdevtools/block-explorer-rpc-cosmos/be_rpc/backend"
 	berpctypes "github.com/bcdevtools/block-explorer-rpc-cosmos/be_rpc/types"
 	ieberpcbackend "github.com/bcdevtools/evm-block-explorer-rpc-cosmos/integrate_be_rpc/backend/evm"
-	iwberpcbackend "github.com/bcdevtools/evm-block-explorer-rpc-cosmos/integrate_be_rpc/backend/wasm"
 )
 
 /**
-This file is used to get rid of compile error in IDE or Non-EVM & Non-Wasm chains.
+This file is used to get rid of compile error in IDE or Non-EVM chains.
 */
 
 type DefaultRequestInterceptor struct {
@@ -20,7 +19,6 @@ type DefaultRequestInterceptor struct {
 func NewDefaultRequestInterceptor(
 	beRpcBackend berpcbackend.BackendI,
 	_ ieberpcbackend.EvmBackendI,
-	_ iwberpcbackend.WasmBackendI,
 ) *DefaultRequestInterceptor {
 	return &DefaultRequestInterceptor{
 		beRpcBackend: beRpcBackend,

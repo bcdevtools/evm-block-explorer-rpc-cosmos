@@ -1,4 +1,4 @@
-//go:build !be_json_rpc_evm && !be_json_rpc_wasm
+//go:build !be_json_rpc_evm
 
 package types
 
@@ -7,7 +7,7 @@ import (
 )
 
 /**
-This file is used to get rid of compile error in IDE or Non-EVM & Non-Wasm chains.
+This file is used to get rid of compile error in IDE or Non-EVM chains.
 */
 
 // QueryClient defines a gRPC Client
