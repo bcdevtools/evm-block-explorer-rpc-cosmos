@@ -1,9 +1,8 @@
-package backend
+package evm
 
 import (
 	berpcbackend "github.com/bcdevtools/block-explorer-rpc-cosmos/be_rpc/backend"
 	berpctypes "github.com/bcdevtools/block-explorer-rpc-cosmos/be_rpc/types"
-	ieberpcbackend "github.com/bcdevtools/evm-block-explorer-rpc-cosmos/integrate_be_rpc/backend/evm"
 	iberpcutils "github.com/bcdevtools/evm-block-explorer-rpc-cosmos/integrate_be_rpc/utils"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/ethereum/go-ethereum/common"
@@ -18,13 +17,13 @@ var _ berpcbackend.RequestInterceptor = (*DefaultRequestInterceptor)(nil)
 
 type DefaultRequestInterceptor struct {
 	beRpcBackend berpcbackend.BackendI
-	backend      ieberpcbackend.EvmBackendI
+	backend      EvmBackendI
 	bech32Cfg    berpctypes.Bech32Config
 }
 
 func NewDefaultRequestInterceptor(
 	beRpcBackend berpcbackend.BackendI,
-	backend ieberpcbackend.EvmBackendI,
+	backend EvmBackendI,
 ) *DefaultRequestInterceptor {
 	return &DefaultRequestInterceptor{
 		beRpcBackend: beRpcBackend,
