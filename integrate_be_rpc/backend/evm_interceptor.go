@@ -1,5 +1,3 @@
-//go:build be_json_rpc_evm
-
 package backend
 
 import (
@@ -15,6 +13,8 @@ import (
 	"math/big"
 	"strings"
 )
+
+var _ berpcbackend.RequestInterceptor = (*DefaultRequestInterceptor)(nil)
 
 type DefaultRequestInterceptor struct {
 	beRpcBackend berpcbackend.BackendI

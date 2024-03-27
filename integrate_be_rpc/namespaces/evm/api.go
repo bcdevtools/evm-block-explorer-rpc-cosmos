@@ -1,5 +1,3 @@
-//go:build be_json_rpc_evm
-
 package evm
 
 import (
@@ -7,6 +5,13 @@ import (
 	ieberpcbackend "github.com/bcdevtools/evm-block-explorer-rpc-cosmos/integrate_be_rpc/backend/evm"
 	"github.com/cosmos/cosmos-sdk/server"
 	"github.com/tendermint/tendermint/libs/log"
+)
+
+// RPC namespaces and API version
+const (
+	DymEvmBlockExplorerNamespace = "evm"
+
+	ApiVersion = "1.0"
 )
 
 // API is the EVM Block Explorer JSON-RPC.
