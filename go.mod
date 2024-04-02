@@ -3,7 +3,7 @@ module github.com/bcdevtools/evm-block-explorer-rpc-cosmos
 go 1.19
 
 require (
-	github.com/bcdevtools/block-explorer-rpc-cosmos v0.0.0
+	github.com/bcdevtools/block-explorer-rpc-cosmos v1.0.1
 	github.com/cosmos/cosmos-sdk v0.46.15
 	github.com/ethereum/go-ethereum v1.10.26
 	github.com/evmos/evmos/v12 v12.1.6
@@ -155,7 +155,6 @@ require (
 )
 
 replace (
-	github.com/bcdevtools/block-explorer-rpc-cosmos => /Users/hungphamviet/Dev/bcdevtools/block-explorer-rpc-cosmos
 	github.com/gogo/protobuf => github.com/regen-network/protobuf v1.3.3-alpha.regen.1
 	github.com/tendermint/tendermint => github.com/cometbft/cometbft v0.34.28
 )
