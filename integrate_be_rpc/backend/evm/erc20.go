@@ -85,6 +85,11 @@ func (m *EvmBackend) GetErc20ContractInfo(contractAddress common.Address) (berpc
 }
 
 func (m *EvmBackend) GetErc20Balance(accountAddress common.Address, contractAddresses []common.Address) (berpctypes.GenericBackendResponse, error) {
+	const maxContractsPerQuery = 50
+	if len(contractAddresses) > maxContractsPerQuery {
+		return nil, status.Error(codes.InvalidArgument, errors.New("too many contracts to query").Error())
+	}
+
 	res := berpctypes.GenericBackendResponse{
 		"account": accountAddress.String(),
 	}
