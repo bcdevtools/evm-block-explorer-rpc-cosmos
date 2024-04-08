@@ -60,6 +60,11 @@ Templates for Unreleased:
 
 #### Bug Fixes
 
+## v1.0.4 - 2024-04-08
+
+#### Improvements
+- (block) [#5](https://github.com/bcdevtools/evm-block-explorer-rpc-cosmos/pull/5) Exclude the null address from being included into ERC-20 & NFT minting/burning events
+
 ## v1.0.3 - 2024-04-08
 
 #### Improvements
