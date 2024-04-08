@@ -122,14 +122,37 @@ func (m *EvmBackend) GetEvmTransactionInvolversByHash(hash common.Hash) (berpcty
 				continue
 			}
 
-			if addrFromTopic1 {
-				involvers.Add(involverType, berpcutils.AccAddressFromTopic(log.Topics[1]).String())
-			}
-			if addrFromTopic2 {
-				involvers.Add(involverType, berpcutils.AccAddressFromTopic(log.Topics[2]).String())
-			}
-			if addrFromTopic3 {
-				involvers.Add(involverType, berpcutils.AccAddressFromTopic(log.Topics[3]).String())
+			if involverType == berpctypes.Erc20Involvers || involverType == berpctypes.NftInvolvers {
+				// do not include the null address of the minting-burning events
+
+				if addrFromTopic1 {
+					accAddr := berpcutils.AccAddressFromTopic(log.Topics[1])
+					if !berpcutils.IsZeroAccAddress(accAddr) {
+						involvers.Add(involverType, accAddr.String())
+					}
+				}
+				if addrFromTopic2 {
+					accAddr := berpcutils.AccAddressFromTopic(log.Topics[2])
+					if !berpcutils.IsZeroAccAddress(accAddr) {
+						involvers.Add(involverType, accAddr.String())
+					}
+				}
+				if addrFromTopic3 {
+					accAddr := berpcutils.AccAddressFromTopic(log.Topics[3])
+					if !berpcutils.IsZeroAccAddress(accAddr) {
+						involvers.Add(involverType, accAddr.String())
+					}
+				}
+			} else {
+				if addrFromTopic1 {
+					involvers.Add(involverType, berpcutils.AccAddressFromTopic(log.Topics[1]).String())
+				}
+				if addrFromTopic2 {
+					involvers.Add(involverType, berpcutils.AccAddressFromTopic(log.Topics[2]).String())
+				}
+				if addrFromTopic3 {
+					involvers.Add(involverType, berpcutils.AccAddressFromTopic(log.Topics[3]).String())
+				}
 			}
 		}
 	}
