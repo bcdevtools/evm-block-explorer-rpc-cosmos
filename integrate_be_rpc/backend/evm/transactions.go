@@ -25,9 +25,10 @@ func (m *EvmBackend) GetEvmTransactionInvolversByHash(hash common.Hash) (berpcty
 
 	involvers := make(berpctypes.MessageInvolversResult)
 	involvers.Add(berpctypes.MessageInvolvers, sdk.AccAddress(receipt["from"].(common.Address).Bytes()).String())
-	to := receipt["to"]
+
+	to := receipt["to"].(*common.Address)
 	if to != nil {
-		involvers.Add(berpctypes.MessageInvolvers, sdk.AccAddress(to.(*common.Address).Bytes()).String())
+		involvers.Add(berpctypes.MessageInvolvers, sdk.AccAddress(to.Bytes()).String())
 	} else {
 		involvers.Add(berpctypes.MessageInvolvers, sdk.AccAddress(receipt["contractAddress"].(common.Address).Bytes()).String())
 	}
