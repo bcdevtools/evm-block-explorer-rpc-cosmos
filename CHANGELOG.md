@@ -60,11 +60,15 @@ Templates for Unreleased:
 
 ### Bug Fixes
 
-## v2.0.0 - 2024-04-14
+## v1.1.0 - 2024-04-14
 
 ### Improvements
 
 - (contract) [#6](https://github.com/bcdevtools/evm-block-explorer-rpc-cosmos/pull/6) Add token contract balance changes
+
+### API Breaking
+
+- (deps) [#7](https://github.com/bcdevtools/evm-block-explorer-rpc-cosmos/pull/7) Bumps `block-explorer-rpc-cosmos` to v1.1.0
 
 ## v1.0.3 - 2024-04-08
 
