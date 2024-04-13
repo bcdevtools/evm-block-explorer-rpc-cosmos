@@ -41,35 +41,44 @@ Templates for Unreleased:
 
 ## Unreleased
 
-#### Features
+### Features
 
-#### Improvements
+### Improvements
 
-#### Bug Fixes
+### Bug Fixes
 
-#### Schema Breaking
+### Schema Breaking
 
-#### API Breaking
+### API Breaking
 -->
 
 # Changelog
 
 ## Unreleased
 
-#### Improvements
+### Improvements
 
-#### Bug Fixes
+### Bug Fixes
+
+## v2.0.0 - 2024-04-14
+
+### Improvements
+
+- (contract) [#6](https://github.com/bcdevtools/evm-block-explorer-rpc-cosmos/pull/6) Add token contract balance changes
 
 ## v1.0.3 - 2024-04-08
 
-#### Improvements
+### Improvements
+
 - (deps) [#4](https://github.com/bcdevtools/evm-block-explorer-rpc-cosmos/pull/4) Bumps `block-explorer-rpc-cosmos` to v1.0.3
 
-#### Bug Fixes
+### Bug Fixes
+
 - (block) [#3](https://github.com/bcdevtools/evm-block-explorer-rpc-cosmos/pull/3) Handle crash due to invalid evm receipt handling
 
 ## v1.0.2 - 2024-04-05
 
-#### Improvements
+### Improvements
+
 - (deps) [#1](https://github.com/bcdevtools/evm-block-explorer-rpc-cosmos/pull/1) Bumps `block-explorer-rpc-cosmos` to v1.0.2
 - (contract) [#2](https://github.com/bcdevtools/evm-block-explorer-rpc-cosmos/pull/2) Limit number of contracts per ERC-20 balances query to 50
