@@ -131,35 +131,35 @@ func (m *EvmBackend) GetEvmTransactionInvolversByHash(hash common.Hash) (berpcty
 			}
 
 			if addrFromTopic1 {
-				addr := berpcutils.AccAddressFromTopic(log.Topics[1]).String()
-				involvers.AddGenericInvolvers(involverType, addr)
-				if tokenBalanceInvolve {
+				addr := berpcutils.AccAddressFromTopic(log.Topics[1])
+				involvers.AddGenericInvolvers(involverType, addr.String())
+				if tokenBalanceInvolve && !berpcutils.IsZeroEvmAddress(common.BytesToAddress(addr.Bytes())) {
 					involvers.AddContractInvolvers(
 						involverType,
 						berpctypes.ContractAddress(strings.ToLower(log.Address.String())),
-						addr,
+						addr.String(),
 					)
 				}
 			}
 			if addrFromTopic2 {
-				addr := berpcutils.AccAddressFromTopic(log.Topics[2]).String()
-				involvers.AddGenericInvolvers(involverType, addr)
-				if tokenBalanceInvolve {
+				addr := berpcutils.AccAddressFromTopic(log.Topics[2])
+				involvers.AddGenericInvolvers(involverType, addr.String())
+				if tokenBalanceInvolve && !berpcutils.IsZeroEvmAddress(common.BytesToAddress(addr.Bytes())) {
 					involvers.AddContractInvolvers(
 						involverType,
 						berpctypes.ContractAddress(strings.ToLower(log.Address.String())),
-						addr,
+						addr.String(),
 					)
 				}
 			}
 			if addrFromTopic3 {
-				addr := berpcutils.AccAddressFromTopic(log.Topics[3]).String()
-				involvers.AddGenericInvolvers(involverType, addr)
-				if tokenBalanceInvolve {
+				addr := berpcutils.AccAddressFromTopic(log.Topics[3])
+				involvers.AddGenericInvolvers(involverType, addr.String())
+				if tokenBalanceInvolve && !berpcutils.IsZeroEvmAddress(common.BytesToAddress(addr.Bytes())) {
 					involvers.AddContractInvolvers(
 						involverType,
 						berpctypes.ContractAddress(strings.ToLower(log.Address.String())),
-						addr,
+						addr.String(),
 					)
 				}
 			}
