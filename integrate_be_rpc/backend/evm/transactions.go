@@ -23,22 +23,22 @@ func (m *EvmBackend) GetEvmTransactionInvolversByHash(hash common.Hash) (berpcty
 		return nil, status.Error(codes.Internal, errors.Wrap(err, "failed to get transaction receipt").Error())
 	}
 
-	involvers := make(berpctypes.MessageInvolversResult)
-	involvers.Add(berpctypes.MessageInvolvers, sdk.AccAddress(receipt["from"].(common.Address).Bytes()).String())
+	involvers := berpctypes.NewMessageInvolversResult()
+	involvers.AddGenericInvolvers(berpctypes.MessageInvolvers, sdk.AccAddress(receipt["from"].(common.Address).Bytes()).String())
 
 	to := receipt["to"].(*common.Address)
 	if to != nil {
-		involvers.Add(berpctypes.MessageInvolvers, sdk.AccAddress(to.Bytes()).String())
+		involvers.AddGenericInvolvers(berpctypes.MessageInvolvers, sdk.AccAddress(to.Bytes()).String())
 	} else {
-		involvers.Add(berpctypes.MessageInvolvers, sdk.AccAddress(receipt["contractAddress"].(common.Address).Bytes()).String())
+		involvers.AddGenericInvolvers(berpctypes.MessageInvolvers, sdk.AccAddress(receipt["contractAddress"].(common.Address).Bytes()).String())
 	}
 
 	if logs, ok := receipt["logs"].([]*ethtypes.Log); ok {
 		for _, log := range logs {
-			involvers.Add(berpctypes.MessageInvolvers, sdk.AccAddress(log.Address.Bytes()).String())
+			involvers.AddGenericInvolvers(berpctypes.MessageInvolvers, sdk.AccAddress(log.Address.Bytes()).String())
 
 			var involverType berpctypes.InvolversType
-			var addrFromTopic1, addrFromTopic2, addrFromTopic3 bool
+			var tokenBalanceInvolve, addrFromTopic1, addrFromTopic2, addrFromTopic3 bool
 
 			involverType = berpctypes.MessageInvolvers // default
 
@@ -49,6 +49,7 @@ func (m *EvmBackend) GetEvmTransactionInvolversByHash(hash common.Hash) (berpcty
 				true,
 			) {
 				involverType = berpctypes.Erc20Involvers
+				tokenBalanceInvolve = true
 				addrFromTopic1 = true
 				addrFromTopic2 = true
 			} else if berpcutils.IsEvmEventMatch(
@@ -58,6 +59,7 @@ func (m *EvmBackend) GetEvmTransactionInvolversByHash(hash common.Hash) (berpcty
 				false,
 			) {
 				involverType = berpctypes.NftInvolvers
+				tokenBalanceInvolve = true
 				addrFromTopic1 = true
 				addrFromTopic2 = true
 			} else if berpcutils.IsEvmEventMatch(
@@ -90,6 +92,8 @@ func (m *EvmBackend) GetEvmTransactionInvolversByHash(hash common.Hash) (berpcty
 				true, true, true,
 				true,
 			) {
+				involverType = berpctypes.NftInvolvers
+				tokenBalanceInvolve = true
 				addrFromTopic1 = true
 				addrFromTopic2 = true
 				addrFromTopic3 = true
@@ -99,6 +103,8 @@ func (m *EvmBackend) GetEvmTransactionInvolversByHash(hash common.Hash) (berpcty
 				true, true, true,
 				true,
 			) {
+				involverType = berpctypes.NftInvolvers
+				tokenBalanceInvolve = true
 				addrFromTopic1 = true
 				addrFromTopic2 = true
 				addrFromTopic3 = true
@@ -109,6 +115,7 @@ func (m *EvmBackend) GetEvmTransactionInvolversByHash(hash common.Hash) (berpcty
 				true,
 			) {
 				involverType = berpctypes.Erc20Involvers
+				tokenBalanceInvolve = true
 				addrFromTopic1 = true
 			} else if berpcutils.IsEvmEventMatch(
 				log.Topics, log.Data, 2,
@@ -117,19 +124,44 @@ func (m *EvmBackend) GetEvmTransactionInvolversByHash(hash common.Hash) (berpcty
 				true,
 			) {
 				involverType = berpctypes.Erc20Involvers
+				tokenBalanceInvolve = true
 				addrFromTopic1 = true
 			} else {
 				continue
 			}
 
 			if addrFromTopic1 {
-				involvers.Add(involverType, berpcutils.AccAddressFromTopic(log.Topics[1]).String())
+				addr := berpcutils.AccAddressFromTopic(log.Topics[1]).String()
+				involvers.AddGenericInvolvers(involverType, addr)
+				if tokenBalanceInvolve {
+					involvers.AddContractInvolvers(
+						involverType,
+						berpctypes.ContractAddress(strings.ToLower(log.Address.String())),
+						addr,
+					)
+				}
 			}
 			if addrFromTopic2 {
-				involvers.Add(involverType, berpcutils.AccAddressFromTopic(log.Topics[2]).String())
+				addr := berpcutils.AccAddressFromTopic(log.Topics[2]).String()
+				involvers.AddGenericInvolvers(involverType, addr)
+				if tokenBalanceInvolve {
+					involvers.AddContractInvolvers(
+						involverType,
+						berpctypes.ContractAddress(strings.ToLower(log.Address.String())),
+						addr,
+					)
+				}
 			}
 			if addrFromTopic3 {
-				involvers.Add(involverType, berpcutils.AccAddressFromTopic(log.Topics[3]).String())
+				addr := berpcutils.AccAddressFromTopic(log.Topics[3]).String()
+				involvers.AddGenericInvolvers(involverType, addr)
+				if tokenBalanceInvolve {
+					involvers.AddContractInvolvers(
+						involverType,
+						berpctypes.ContractAddress(strings.ToLower(log.Address.String())),
+						addr,
+					)
+				}
 			}
 		}
 	}
