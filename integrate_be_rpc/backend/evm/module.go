@@ -1,7 +1,7 @@
 package evm
 
 import (
-	evmtypes "github.com/evmos/evmos/v12/x/evm/types"
+	evmtypes "github.com/evmos/ethermint/x/evm/types"
 )
 
 func (m *EvmBackend) GetEvmModuleParams() (*evmtypes.Params, error) {

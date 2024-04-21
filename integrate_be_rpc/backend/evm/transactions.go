@@ -10,7 +10,7 @@ import (
 	"github.com/ethereum/go-ethereum/common/hexutil"
 	ethtypes "github.com/ethereum/go-ethereum/core/types"
 	"github.com/ethereum/go-ethereum/core/vm"
-	evmtypes "github.com/evmos/evmos/v12/x/evm/types"
+	evmtypes "github.com/evmos/ethermint/x/evm/types"
 	"github.com/pkg/errors"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"

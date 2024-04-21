@@ -9,9 +9,9 @@ import (
 	"github.com/cosmos/cosmos-sdk/server"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/common/hexutil"
-	"github.com/evmos/evmos/v12/rpc/backend"
-	evmostypes "github.com/evmos/evmos/v12/types"
-	evmtypes "github.com/evmos/evmos/v12/x/evm/types"
+	"github.com/evmos/ethermint/rpc/backend"
+	evmostypes "github.com/evmos/ethermint/types"
+	evmtypes "github.com/evmos/ethermint/x/evm/types"
 	"github.com/tendermint/tendermint/libs/log"
 )
 

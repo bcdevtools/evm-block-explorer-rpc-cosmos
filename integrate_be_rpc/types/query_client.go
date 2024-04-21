@@ -4,7 +4,7 @@ import (
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/types/tx"
 	banktypes "github.com/cosmos/cosmos-sdk/x/bank/types"
-	evmtypes "github.com/evmos/evmos/v12/x/evm/types"
+	evmtypes "github.com/evmos/ethermint/x/evm/types"
 )
 
 // QueryClient defines a gRPC Client

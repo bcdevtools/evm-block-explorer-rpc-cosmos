@@ -1,6 +1,6 @@
 package utils
 
-import "github.com/evmos/evmos/v12/contracts"
+import "github.com/evmos/ethermint/contracts"
 
 func UnpackAbiString(bz []byte, optionalMethodName string) (string, error) {
 	methodName := "symbol"

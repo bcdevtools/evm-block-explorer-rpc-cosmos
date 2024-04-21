@@ -2,7 +2,7 @@ package evm
 
 import (
 	"github.com/ethereum/go-ethereum/common"
-	evmtypes "github.com/evmos/evmos/v12/x/evm/types"
+	evmtypes "github.com/evmos/ethermint/x/evm/types"
 )
 
 func (m *EvmBackend) GetContractCode(contractAddress common.Address) ([]byte, error) {
