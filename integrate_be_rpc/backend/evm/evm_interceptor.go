@@ -109,8 +109,8 @@ func (m *DefaultRequestInterceptor) GetAccount(accountAddressStr string) (interc
 		return
 	}
 
-	accAddr, err := sdk.AccAddressFromBech32(accAddrStr)
-	if err != nil {
+	accAddr, errConvert := sdk.AccAddressFromBech32(accAddrStr)
+	if errConvert != nil {
 		// not an account address, ignore
 		intercepted = false
 		append = false
@@ -136,9 +136,9 @@ func (m *DefaultRequestInterceptor) GetAccount(accountAddressStr string) (interc
 	address := common.BytesToAddress(accAddr.Bytes())
 	response = make(berpctypes.GenericBackendResponse)
 
-	code, err := m.backend.GetContractCode(address)
-	if err != nil {
-		err = status.Error(codes.Internal, errors.Wrap(err, "failed to check contract code").Error())
+	code, errGetCode := m.backend.GetContractCode(address)
+	if errGetCode != nil {
+		err = status.Error(codes.Internal, errors.Wrap(errGetCode, "failed to check contract code").Error())
 		return
 	}
 
@@ -154,26 +154,26 @@ func (m *DefaultRequestInterceptor) GetAccount(accountAddressStr string) (interc
 	contractInfo := make(berpctypes.GenericBackendResponse)
 	response["contract"] = contractInfo
 
-	symbol, err := call("0x95d89b41") // symbol()
-	if err == nil {
+	symbol, errGetSymbol := call("0x95d89b41") // symbol()
+	if errGetSymbol == nil {
 		if len(symbol) > 0 {
-			unpackedSymbol, err := iberpcutils.UnpackAbiString(symbol, "symbol")
-			if err == nil {
+			unpackedSymbol, errUnpack := iberpcutils.UnpackAbiString(symbol, "symbol")
+			if errUnpack == nil {
 				contractInfo["symbol"] = unpackedSymbol
 			}
 		}
 	}
 
-	decimals, err := call("0x313ce567") // decimals()
-	if err == nil {
+	decimals, errGetDecimals := call("0x313ce567") // decimals()
+	if errGetDecimals == nil {
 		contractInfo["decimals"] = new(big.Int).SetBytes(decimals).Int64()
 	}
 
-	name, err := call("0x06fdde03") // name()
-	if err == nil {
+	name, errGetName := call("0x06fdde03") // name()
+	if errGetName == nil {
 		if len(name) > 0 {
-			unpackedName, err := iberpcutils.UnpackAbiString(name, "name")
-			if err == nil {
+			unpackedName, errUnpack := iberpcutils.UnpackAbiString(name, "name")
+			if errUnpack == nil {
 				contractInfo["name"] = unpackedName
 			}
 		}
