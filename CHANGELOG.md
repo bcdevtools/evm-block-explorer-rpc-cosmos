@@ -56,12 +56,17 @@ Templates for Unreleased:
 
 ## Unreleased
 
+## v1.1.2 - 2024-04-28
+
+### Improvements
+
+- (rpc) [#10](https://github.com/bcdevtools/evm-block-explorer-rpc-cosmos/pull/10) Improve implementation of `be_getAccount`, prevent potential bug
+
+## v1.1.1 - 2024-04-21
+
 ### Improvements
 
 - (deps) [#8](https://github.com/bcdevtools/evm-block-explorer-rpc-cosmos/pull/8) Bumps `block-explorer-rpc-cosmos` to v1.1.2
-- (rpc) [#10](https://github.com/bcdevtools/evm-block-explorer-rpc-cosmos/pull/10) Improve implementation of `be_getAccount`, prevent potential bug
-
-### Bug Fixes
 
 ## v1.1.0 - 2024-04-14
 
