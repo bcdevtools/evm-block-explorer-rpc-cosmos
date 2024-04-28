@@ -59,6 +59,7 @@ Templates for Unreleased:
 ### Improvements
 
 - (deps) [#8](https://github.com/bcdevtools/evm-block-explorer-rpc-cosmos/pull/8) Bumps `block-explorer-rpc-cosmos` to v1.1.2
+- (rpc) [#10](https://github.com/bcdevtools/evm-block-explorer-rpc-cosmos/pull/10) Improve implementation of `be_getAccount`, prevent potential bug
 
 ### Bug Fixes
 
