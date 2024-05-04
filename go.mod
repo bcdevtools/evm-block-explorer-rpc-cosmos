@@ -3,7 +3,7 @@ module github.com/bcdevtools/evm-block-explorer-rpc-cosmos
 go 1.19
 
 require (
-	github.com/bcdevtools/block-explorer-rpc-cosmos v1.1.5
+	github.com/bcdevtools/block-explorer-rpc-cosmos v1.1.6
 	github.com/cosmos/cosmos-sdk v0.46.15
 	github.com/ethereum/go-ethereum v1.10.26
 	github.com/evmos/evmos/v12 v12.1.6
