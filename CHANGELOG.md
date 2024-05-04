@@ -56,6 +56,10 @@ Templates for Unreleased:
 
 ## Unreleased
 
+### Improvements
+
+- (deps) [#11](https://github.com/bcdevtools/evm-block-explorer-rpc-cosmos/pull/11) Bumps `block-explorer-rpc-cosmos` to v1.1.5
+
 ## v1.1.2 - 2024-04-28
 
 ### Improvements
