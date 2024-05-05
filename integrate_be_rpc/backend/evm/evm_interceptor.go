@@ -75,17 +75,18 @@ func (m *DefaultRequestInterceptor) GetModuleParams(moduleName string) (intercep
 		evmParams, errFetch := m.backend.GetEvmModuleParams()
 		if errFetch != nil {
 			err = errors.Wrap(errFetch, "failed to get evm params")
-		} else {
-			params = *evmParams
+			break
 		}
-		break
+
+		params = *evmParams
 	case "erc20":
 		erc20Params, errFetch := m.backend.GetErc20ModuleParams()
 		if errFetch != nil {
 			err = errors.Wrap(errFetch, "failed to get erc20 params")
-		} else {
-			params = *erc20Params
+			break
 		}
+
+		params = *erc20Params
 		break
 	default:
 		intercepted = false
