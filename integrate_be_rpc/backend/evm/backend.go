@@ -11,6 +11,7 @@ import (
 	"github.com/ethereum/go-ethereum/common/hexutil"
 	"github.com/evmos/evmos/v12/rpc/backend"
 	evmostypes "github.com/evmos/evmos/v12/types"
+	erc20types "github.com/evmos/evmos/v12/x/erc20/types"
 	evmtypes "github.com/evmos/evmos/v12/x/evm/types"
 	"github.com/tendermint/tendermint/libs/log"
 )
@@ -40,6 +41,8 @@ type EvmBackendI interface {
 	// Misc
 
 	GetEvmModuleParams() (*evmtypes.Params, error)
+
+	GetErc20ModuleParams() (*erc20types.Params, error)
 }
 
 // EvmBackend implements the EvmBackendI interface
