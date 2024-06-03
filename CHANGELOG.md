@@ -56,6 +56,12 @@ Templates for Unreleased:
 
 ## Unreleased
 
+## v1.1.4 - 2024-06-03
+
+### Improvements
+
+- (parser) [#15](https://github.com/bcdevtools/evm-block-explorer-rpc-cosmos/pull/15) Handle parsing `x/erc20` messages
+
 ## v1.1.3 - 2024-05-05
 
 ### Improvements
