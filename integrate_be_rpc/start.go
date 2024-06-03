@@ -8,17 +8,15 @@ import (
 	berpctypes "github.com/bcdevtools/block-explorer-rpc-cosmos/be_rpc/types"
 	berpcserver "github.com/bcdevtools/block-explorer-rpc-cosmos/server"
 	evmberpcbackend "github.com/bcdevtools/evm-block-explorer-rpc-cosmos/integrate_be_rpc/backend/evm"
+	bemsgivxtrac "github.com/bcdevtools/evm-block-explorer-rpc-cosmos/integrate_be_rpc/message_involves_extractors"
+	bemsgparsers "github.com/bcdevtools/evm-block-explorer-rpc-cosmos/integrate_be_rpc/message_parsers"
 	evmbeapi "github.com/bcdevtools/evm-block-explorer-rpc-cosmos/integrate_be_rpc/namespaces/evm"
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/server"
-	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/cosmos/cosmos-sdk/types/tx"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/rpc"
 	evmostypes "github.com/evmos/evmos/v12/types"
-	evmtypes "github.com/evmos/evmos/v12/x/evm/types"
 	rpcclient "github.com/tendermint/tendermint/rpc/jsonrpc/client"
-	tmtypes "github.com/tendermint/tendermint/types"
 	"time"
 )
 
@@ -75,11 +73,10 @@ func StartEvmBeJsonRPC(
 
 	// register message parsers & message involvers extractor
 
-	berpc.RegisterMessageInvolversExtractor(&evmtypes.MsgEthereumTx{}, func(msg sdk.Msg, _ *tx.Tx, _ tmtypes.Tx, _ client.Context) (berpctypes.MessageInvolversResult, error) {
-		return evmBeRpcBackend.GetEvmTransactionInvolversByHash(
-			msg.(*evmtypes.MsgEthereumTx).AsTransaction().Hash(),
-		)
-	})
+	bemsgparsers.RegisterMessageParsersForEvm(evmBeRpcBackend)
+
+	bemsgivxtrac.RegisterMessageInvolvesExtractorsForEvm(evmBeRpcBackend)
+	bemsgivxtrac.RegisterMessageInvolvesExtractorsForErc20()
 
 	var interceptorCreationFunc func(berpcbackend.BackendI) berpcbackend.RequestInterceptor
 	if customInterceptorCreationFunc != nil {

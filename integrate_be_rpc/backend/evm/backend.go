@@ -7,6 +7,8 @@ import (
 	iberpctypes "github.com/bcdevtools/evm-block-explorer-rpc-cosmos/integrate_be_rpc/types"
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/server"
+	sdk "github.com/cosmos/cosmos-sdk/types"
+	banktypes "github.com/cosmos/cosmos-sdk/x/bank/types"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/common/hexutil"
 	"github.com/evmos/evmos/v12/rpc/backend"
@@ -43,6 +45,8 @@ type EvmBackendI interface {
 	GetEvmModuleParams() (*evmtypes.Params, error)
 
 	GetErc20ModuleParams() (*erc20types.Params, error)
+
+	GetBankDenomsMetadata(coins sdk.Coins) map[string]banktypes.Metadata
 }
 
 // EvmBackend implements the EvmBackendI interface
