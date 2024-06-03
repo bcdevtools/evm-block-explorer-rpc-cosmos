@@ -10,6 +10,7 @@ import (
 	"github.com/cosmos/cosmos-sdk/types/tx"
 	"github.com/ethereum/go-ethereum/common"
 	erc20types "github.com/evmos/evmos/v12/x/erc20/types"
+	"strings"
 )
 
 func RegisterMessageParsersForEvm(evmBeRpcBackend evm.EvmBackendI) {
@@ -21,7 +22,7 @@ func RegisterMessageParsersForEvm(evmBeRpcBackend evm.EvmBackendI) {
 				"from": []string{msg.Sender},
 				"to": []map[string]any{
 					{
-						"address": msg.Receiver,
+						"address": strings.ToLower(msg.Receiver),
 						"amount":  berpcutils.CoinsToMap(msg.Coin),
 					},
 				},
@@ -33,7 +34,7 @@ func RegisterMessageParsersForEvm(evmBeRpcBackend evm.EvmBackendI) {
 			WriteText(" converts ").
 			WriteCoins(sdk.Coins{msg.Coin}, evmBeRpcBackend.GetBankDenomsMetadata(sdk.Coins{msg.Coin})).
 			WriteText(" to ERC-20 tokens and send to ").
-			WriteAddress(msg.Receiver).
+			WriteAddress(strings.ToLower(msg.Receiver)).
 			BuildIntoResponse(res)
 
 		return
@@ -44,7 +45,7 @@ func RegisterMessageParsersForEvm(evmBeRpcBackend evm.EvmBackendI) {
 
 		res = berpctypes.GenericBackendResponse{
 			"transfer": map[string]any{
-				"from": []string{msg.Sender},
+				"from": []string{strings.ToLower(msg.Sender)},
 				"to": []map[string]any{
 					{
 						"address": msg.Receiver,
@@ -55,7 +56,7 @@ func RegisterMessageParsersForEvm(evmBeRpcBackend evm.EvmBackendI) {
 		}
 
 		rb := berpctypes.NewFriendlyResponseContentBuilder().
-			WriteAddress(msg.Sender).
+			WriteAddress(strings.ToLower(msg.Sender)).
 			WriteText(" converts ERC-20 token (contract ")
 
 		if contractAddr := common.HexToAddress(msg.ContractAddress); !berpcutils.IsZeroEvmAddress(contractAddr) {
@@ -68,7 +69,7 @@ func RegisterMessageParsersForEvm(evmBeRpcBackend evm.EvmBackendI) {
 			}
 		}
 
-		rb.WriteAddress(msg.ContractAddress).WriteText(") back to coins and send to ").
+		rb.WriteAddress(strings.ToLower(msg.ContractAddress)).WriteText(") back to coins and send to ").
 			WriteAddress(msg.Receiver).
 			BuildIntoResponse(res)
 
